@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoApp.Views.LoginValidationPage"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewmodels="clr-namespace:DemoApp.ViewModels"
+             xmlns:controls="clr-namespace:DemoApp.Controls"
+             x:DataType="viewmodels:LoginValidationViewModel"
+             Title="LoginValidationPage">
+    <ContentPage.Resources>
+        <Style x:Key="EntryStyle"
+               TargetType="material:TextField">
+            <Setter Property="BorderColor"
+                    Value="#CCCCCC" />
+            <Setter Property="HeightRequest"
+                    Value="45" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="AccentColor"
+                    Value="{x:StaticResource Primary}" />
+        </Style>
+        <Style x:Key="SubmitStyle"
+               TargetType="Button">
+            <Setter Property="HeightRequest"
+                    Value="48" />
+            <Setter Property="BackgroundColor"
+                    Value="{x:StaticResource Primary}" />
+            <Setter Property="FontAttributes"
+                    Value="Bold" />
+            <Setter Property="TextColor"
+                    Value="White" />
+            <Setter Property="CornerRadius"
+                    Value="8" />
+            <Setter Property="FontFamily"
+                    Value="NotoSansSemibold" />
+        </Style>
+        <ResourceDictionary>
+            <mct:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
+            <mct:ListToStringConverter x:Key="ListToStringConverter"
+                                       Separator="&#10;" />
+            <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="120, *, 20">
+        <Image Grid.Row="0"
+               HeightRequest="56"
+               WidthRequest="196"
+               Source="dotnet_bot"
+               Aspect="Center" />
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="25"
+                             Padding="16"
+                             VerticalOptions="Start">
+            <Label Text="Login"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center" />
+            <VerticalStackLayout Spacing="24">
+                <material:TextField x:Name="entryEmail"
+                                    Title="Email"
+                                    Text="{Binding Email.Value}"
+                                    Keyboard="Email"
+                                    Style="{x:StaticResource EntryStyle}">
+                    <material:TextField.Attachments>
+                        <Image Source="error_container.png"
+                               Margin="0,0,10,0"
+                               IsVisible="{Binding Email.IsValid, Converter={StaticResource Key=InvertedBoolConverter}}" />
+                    </material:TextField.Attachments>
+                    <material:TextField.Behaviors>
+                        <mct:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding ValidateEmailCommand}" />
+                    </material:TextField.Behaviors>
+                    <material:TextField.Triggers>
+                        <DataTrigger TargetType="material:TextField"
+                                     Binding="{Binding Email.IsValid}"
+                                     Value="False">
+                            <Setter Property="BorderColor"
+                                    Value="#F55718" />
+                            <Setter Property="TitleColor"
+                                    Value="#F55718" />
+                        </DataTrigger>
+                    </material:TextField.Triggers>
+                </material:TextField>
+                <Label Text="{Binding Email.Errors, Converter={StaticResource ListToStringConverter}}"
+                       IsVisible="{Binding Email.Errors, Converter={StaticResource IsListNotNullOrEmptyConverter}}"
+                       Margin="0,-12"
+                       Padding="16,0"
+                       FontSize="14"
+                       TextColor="#F55718" />
+                <material:TextField x:Name="entryPassword"
+                                    Title="Password"
+                                    Text="{Binding Password.Value}"
+                                    IsPassword="True"
+                                    Style="{x:StaticResource EntryStyle}">
+                    <material:TextField.Attachments>
+                        <material:TextFieldPasswordShowHideAttachment />
+                    </material:TextField.Attachments>
+                    <material:TextField.Behaviors>
+                        <mct:EventToCommandBehavior EventName="TextChanged"
+                                                    Command="{Binding ValidatePasswordCommand}" />
+                    </material:TextField.Behaviors>
+                    <material:TextField.Triggers>
+                        <DataTrigger TargetType="material:TextField"
+                                     Binding="{Binding Password.IsValid}"
+                                     Value="False">
+                            <Setter Property="BorderColor"
+                                    Value="#F55718" />
+                            <Setter Property="TitleColor"
+                                    Value="#F55718" />
+                        </DataTrigger>
+                    </material:TextField.Triggers>
+                </material:TextField>
+                <Label Text="{Binding Password.Errors, Converter={StaticResource ListToStringConverter}}"
+                       IsVisible="{Binding Password.Errors, Converter={StaticResource IsListNotNullOrEmptyConverter}}"
+                       Margin="0,-12"
+                       Padding="16,0"
+                       FontSize="14"
+                       TextColor="#F55718" />
+                <Button Text="Login"
+                        Style="{x:StaticResource SubmitStyle}"
+                        Command="{Binding AuthenticateCommand}"
+                        IsEnabled="{Binding IsValidated}">
+                    <Button.Triggers>
+                        <DataTrigger TargetType="Button"
+                                     Binding="{Binding IsValidated}"
+                                     Value="False">
+                            <Setter Property="TextColor"
+                                    Value="#CCCCCC" />
+                        </DataTrigger>
+                    </Button.Triggers>
+                </Button>
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+        <VerticalStackLayout Grid.Row="2">
+            <controls:VersionControl />
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<the49:BottomSheet xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                   xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                   xmlns:the49="https://schemas.the49.com/dotnet/2023/maui"
+                   xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+                   CornerRadius="15"
+                   HasBackdrop="True"
+                   BackgroundColor="White"
+                   x:Class="DemoApp.Controls.CustomBottomSheet">
+    <the49:BottomSheet.Detents>
+        <the49:RatioDetent Ratio="0.43" />
+    </the49:BottomSheet.Detents>
+    <VerticalStackLayout Spacing="16"
+                         Padding="24">
+        <Label Text="Option"
+               FontSize="24"
+               FontAttributes="Bold" />
+        <BoxView x:Name="divider" />
+        <VerticalStackLayout>
+            <material:RadioButtonGroupView SelectedIndex="{Binding SelectedIndex}">
+                <material:RadioButton Text="Production" />
+                <material:RadioButton Text="Staging" />
+                <material:RadioButton Text="Testing" />
+            </material:RadioButtonGroupView>
+            <VerticalStackLayout Padding="5"
+                                 Margin="0,50,0,0">
+                <Button Text="Save"
+                        Style="{x:StaticResource ButtonStyle}"
+                        BackgroundColor="{x:StaticResource Primary}"
+                        TextColor="White"
+                        Command="{Binding SaveCommand}" />
+                <Button Text="Cancel"
+                        Style="{x:StaticResource ButtonStyle}"
+                        TextColor="{x:StaticResource Primary}"
+                        BackgroundColor="White"
+                        Command="{Binding CancelCommand}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</the49:BottomSheet>

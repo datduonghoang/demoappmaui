@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoApp.Views.LoginPage"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:local="clr-namespace:DemoApp.ViewModels"
+             Shell.NavBarIsVisible="False"
+             Title="LoginPage">
+    <ContentPage.Resources>
+        <Style x:Key="EntryStyle"
+               TargetType="material:TextField">
+            <Setter Property="BorderColor"
+                    Value="#CCCCCC" />
+            <Setter Property="HeightRequest"
+                    Value="45" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="AccentColor"
+                    Value="{x:StaticResource Primary}" />
+        </Style>
+        <Style x:Key="SubmitStyle"
+               TargetType="Button">
+            <Setter Property="HeightRequest"
+                    Value="48" />
+            <Setter Property="BackgroundColor"
+                    Value="{x:StaticResource Primary}" />
+            <Setter Property="FontAttributes"
+                    Value="Bold" />
+            <Setter Property="TextColor"
+                    Value="White" />
+            <Setter Property="CornerRadius"
+                    Value="8" />
+            <Setter Property="FontFamily"
+                    Value="NotoSansSemibold" />
+        </Style>
+        <ResourceDictionary>
+            <mct:IsListNotNullOrEmptyConverter x:Key="IsListNotNullOrEmptyConverter" />
+            <mct:ListToStringConverter x:Key="ListToStringConverter"
+                                       Separator="&#10;" />
+            <mct:InvertedBoolConverter x:Key="InvertedBoolConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <local:LoginMVVMToolkitViewModel />
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="120, *, 20">
+        <Image Grid.Row="0"
+               HeightRequest="56"
+               WidthRequest="196"
+               Source="dotnet_bot"
+               Aspect="Center" />
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="25"
+                             Padding="16"
+                             VerticalOptions="Start">
+            <Label Text="Login"
+                   FontSize="26"
+                   FontAttributes="Bold"
+                   TextColor="Black"
+                   HorizontalTextAlignment="Center" />
+            <VerticalStackLayout Spacing="24">
+                <material:TextField x:Name="entryEmail"
+                                    Title="Email"
+                                    Text="{Binding Email}"
+                                    Keyboard="Email"
+                                    Style="{x:StaticResource EntryStyle}" />
+
+                <material:TextField x:Name="entryPassword"
+                                    Title="Password"
+                                    Text="{Binding Password}"
+                                    IsPassword="True"
+                                    Style="{x:StaticResource EntryStyle}" />
+                <Button Text="Login"
+                        Style="{x:StaticResource SubmitStyle}"
+                        Command="{Binding AuthenticateCommand}" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>
