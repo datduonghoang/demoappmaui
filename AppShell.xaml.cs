@@ -25,7 +25,7 @@ namespace DemoApp
         private void RegisterRouteHandler()
         {
             Routing.RegisterRoute(nameof(LoginPage), typeof(LoginPage));
-           // Routing.RegisterRoute(nameof(LoginValidationPage), typeof(LoginValidationPage));
+            // Routing.RegisterRoute(nameof(LoginValidationPage), typeof(LoginValidationPage));
         }
     }
 }

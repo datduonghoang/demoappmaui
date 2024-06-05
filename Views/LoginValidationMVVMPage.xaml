@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="DemoApp.Views.LoginValidationMVVMPage"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:input="clr-namespace:InputKit.Shared.Controls;assembly=InputKit.Maui"
+             xmlns:viewmodels="clr-namespace:DemoApp.ViewModels"
+             x:DataType="viewmodels:LoginValidationMVVMViewModel"
+             Title="LoginValidationMVVMPage">
+    <ContentPage.Resources>
+        <Style x:Key="LabelStyle"
+               TargetType="Label">
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="FontFamily"
+                    Value="NotoSansMedium" />
+        </Style>
+        <Style x:Key="EntryStyle"
+               TargetType="material:TextField">
+            <Setter Property="BorderColor"
+                    Value="#CCCCCC" />
+            <Setter Property="HeightRequest"
+                    Value="45" />
+            <Setter Property="FontSize"
+                    Value="16" />
+            <Setter Property="AccentColor"
+                    Value="{x:StaticResource Primary}" />
+            <Setter Property="FontFamily"
+                    Value="NotoSansRegular" />
+            <Style.Triggers>
+                <DataTrigger TargetType="material:TextField"
+                             Binding="{Binding HasErrors}"
+                             Value="True">
+                    <Setter Property="BorderColor"
+                            Value="#F55718" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </ContentPage.Resources>
+    <Grid RowDefinitions="100, *, 20">
+        <VerticalStackLayout Grid.Row="1"
+                             Spacing="24"
+                             Padding="16,20"
+                             VerticalOptions="Center">
+            <Label Text="Login"
+                   FontSize="24"
+                   TextColor="Black"
+                   FontAttributes="Bold"
+                   HorizontalTextAlignment="Center" />
+            <HorizontalStackLayout StyleClass="ErrorContainer"
+                                   Padding="10"
+                                   IsVisible="{Binding HasErrors}"
+                                   Spacing="8"
+                                   BackgroundColor="#FEEBCB">
+                <Image WidthRequest="20"
+                       HeightRequest="20"
+                       Source="error_container.png"
+                       Aspect="AspectFit" />
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="#F55718" />
+            </HorizontalStackLayout>
+            <input:FormView SubmitCommand="{Binding AuthenticateCommand}"
+                            Spacing="20">
+                <material:TextField Title="Email"
+                                    Text="{Binding Email}"
+                                    HeightRequest="56"
+                                    Style="{x:StaticResource EntryStyle}">
+                </material:TextField>
+                <material:TextField Title="Password"
+                                    IsPassword="True"
+                                    Text="{Binding Password}"
+                                    HeightRequest="56"
+                                    Style="{x:StaticResource EntryStyle}">
+                    <material:TextField.Attachments>
+                        <material:TextFieldPasswordShowHideAttachment />
+                    </material:TextField.Attachments>
+                </material:TextField>
+                <Button Text="LOGIN"
+                        input:FormView.IsSubmitButton="True"
+                        HeightRequest="48"
+                        BackgroundColor="{x:StaticResource Primary}"
+                        TextColor="White"
+                        FontAttributes="Bold"
+                        CornerRadius="8" />
+            </input:FormView>
+        </VerticalStackLayout>
+    </Grid>
+</ContentPage>

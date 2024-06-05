@@ -17,6 +17,8 @@ namespace DemoApp.Extensions
         {
             builder.Services.AddSingleton<LoginPage>();
             builder.Services.AddSingleton<LoginValidationPage>();
+            builder.Services.AddSingleton<LoginValidationMVVMPage>();
+
 
             return builder;
         }
@@ -25,6 +27,7 @@ namespace DemoApp.Extensions
         {
             builder.Services.AddSingleton<LoginViewModel>();
             builder.Services.AddSingleton<LoginValidationViewModel>();
+            builder.Services.AddSingleton<LoginValidationMVVMViewModel>();
 
             return builder;
         }

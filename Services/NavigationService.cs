@@ -10,7 +10,7 @@ namespace DemoApp.Services
     {
         public Task InitializeAsync()
         {
-            return NavigateToAsync("//LoginValidationPage");
+            return NavigateToAsync("//LoginValidationMVVMPage");
         }
 
         public Task NavigateToAsync(string route, IDictionary<string, object> routeParameters = null)

@@ -15,5 +15,8 @@
     <ShellContent  ContentTemplate="{DataTemplate screen:LoginValidationPage}"
                    Route="LoginValidationPage"
                    FlyoutItemIsVisible="False" />
+    <ShellContent  ContentTemplate="{DataTemplate screen:LoginValidationMVVMPage}"
+                   Route="LoginValidationMVVMPage"
+                   FlyoutItemIsVisible="False" />
 
 </Shell>
